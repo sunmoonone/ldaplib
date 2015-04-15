@@ -1,0 +1,51 @@
+#objectclass ( 1.1.2.2.1  NAME 'huanqiuPerson'
+#	DESC 'huanqiu a person'
+#	SUP top STRUCTURAL
+#	MUST ( email )
+#	MAY ( description ) )
+#SUP inetOrgPerson  
+#
+#
+attributetype ( 1.1.2.1.1
+	NAME 'objStatus'
+	DESC 'store status value of an object'
+	EQUALITY integerMatch 
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.27)
+
+
+attributetype ( 1.1.2.1.2
+	NAME 'groupName'
+	DESC 'name of group'
+	SUP name )
+
+attributetype ( 1.1.2.1.3
+	NAME 'parentDepartmentNumber'
+	DESC 'departmentNumber of parent department'
+	SUP departmentNumber)
+
+
+objectclass ( 1.1.2.2.1 NAME 'huanqiuPerson'  
+	DESC 'person of huanqiu.com'  
+	SUP inetOrgPerson 
+ 	MUST ( email )  
+	MAY ( objStatus $ groupName ))
+
+
+objectclass ( 1.1.2.2.2 NAME 'huanqiuGroup'  
+	DESC 'group of huanqiu.com'  
+	SUP posixGroup 
+	MAY ( email )  )
+
+
+objectclass ( 1.1.2.2.3 NAME 'huanqiuDepartment'  
+	DESC 'department of huanqiu.com'  
+	SUP organization 
+	MUST ( departmentNumber )
+	MAY ( email $ parentDepartmentNumber ) ) 
+
+objectclass ( 1.1.2.2.4 NAME 'huanqiuUserGroup'  
+	DESC 'relation data of user and group'  
+	SUP top 
+ 	MUST ( cn $ uid $ uidNumber $ gidNumber )  
+	MAY ( displayName $ groupName $ title $ o ))
+
